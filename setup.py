@@ -6,6 +6,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'dockerspawner',
-        'jupyter-repo2docker'
+        'jupyter-repo2docker @ git+https://github.com/wp-cdas/repo2docker.git'
     ],
 )
