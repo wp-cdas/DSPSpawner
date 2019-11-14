@@ -272,4 +272,4 @@ class Repo2DockerSpawner(DockerSpawner):
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
 
-        return await super.start()
+        return await super().start()
