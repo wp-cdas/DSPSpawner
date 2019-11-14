@@ -58,7 +58,7 @@ async def resolve_ref(repo_url, ref):
         return stdout.split()[0]
     return ref
 
-class DSPDockerSpawner(DockerSpawner):
+class DSPSwarmSpawner(SwarmSpawner):
     @property
     def mounts(self):
         if len(self.volume_binds):
@@ -102,7 +102,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
-        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPDockerSpawner',
+        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
                             volumes = {'/mnt/data':'/data'},
                             network_name = network_name,
