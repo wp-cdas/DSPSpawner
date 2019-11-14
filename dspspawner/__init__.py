@@ -49,7 +49,7 @@ async def resolve_ref(repo_url, ref):
         return stdout.split()[0]
     return ref
 
-class DSPSwarmSpawner(SwarmSpawner)
+class DSPSwarmSpawner(SwarmSpawner):
     @property
     def mounts(self):
         if len(self.volume_binds):
