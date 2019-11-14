@@ -158,7 +158,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       cmd = ['jupyter-labhub'],
                       extra_host_config = { 'network_mode' : self.network_name,
                                             'nano_cpus' : self.nano_cpus})
-                    self.log.info(f'Network Name is {self.network_name}')
+                
                 break
 
     def construct_child(self):
@@ -257,7 +257,7 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
             r2d.repo = self.repo
             r2d.ref = resolved_ref
             r2d.user_id = 1000
-            r2d.user_name = 'jovyan'
+            r2d.user_name = 'dspuser'
 
             r2d.output_image_spec = image_spec
             r2d.initialize()
@@ -273,4 +273,4 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
 
-        return await super().start()
+        return await SwarmSpawner.start()
