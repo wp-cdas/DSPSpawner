@@ -150,13 +150,13 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_class = p[2]
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
-                    self.child_config = dict(repo = repolink)
+                    self.child_config = dict(repo = repolink,
                       #This might cause issues as I'm directly calling DockerSpawner as super to Repo2DockerSpawner
                       #volumes = {'/data':'/data'},
-                      #network_name = self.network_name)
+                      network_name = self.network_name,
                       #remove_container = True,
                       #cmd = ['jupyter-labhub'],
-                      #extra_host_config = {'nano_cpus' : self.nano_cpus,})
+                      extra_host_config = {'network_mode' = self.network_name, 'nano_cpus' : self.nano_cpus})
                 
                 break
 
