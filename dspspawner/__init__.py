@@ -1,6 +1,6 @@
 from dockerspawner import SwarmSpawner
 from repo2docker.app import Repo2Docker
-from wrapspawner import ProfilesSpawner
+from wrapspawner import ProfilesSpawner, WrapSpawner
 from concurrent.futures import ThreadPoolExecutor
 from tornado.ioloop import IOLoop
 import asyncio
