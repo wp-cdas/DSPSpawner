@@ -246,12 +246,8 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
         if self.repo is None:
             raise ValueError("Repo2DockerSpawner.repo must be set")
         resolved_ref = await resolve_ref(self.repo, self.ref)
-        repo_escaped = escape(self.repo, escape_char='_').lower()
-        
-        #image_spec = f'r2dspawner-{repo_escaped}:{resolved_ref}'
-        #The ':' causes this to be seen by SwarmSpawner as a dictionary
-        
-        image_spec = f'r2d-{repo_escaped}'
+        repo_escaped = escape(self.repo, escape_char='-').lower()
+        image_spec = f'r2dspawner-{repo_escaped}:{resolved_ref}'
         image_info = await self.inspect_image(image_spec)
         if not image_info:
             self.log.info(f'Image {image_spec} not present, building...')
@@ -275,4 +271,4 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
 
-        return await super().create_object()
+        return await SwarmSpawner.create_object(self)
