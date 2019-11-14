@@ -1,4 +1,4 @@
-from dockerspawner import SwarmSpawner
+from dockerspawner import DockerSpawner, SwarmSpawner
 from repo2docker.app import Repo2Docker
 from wrapspawner import ProfilesSpawner, WrapSpawner
 from concurrent.futures import ThreadPoolExecutor
