@@ -88,8 +88,8 @@ class DSPProfilesSpawner(ProfilesSpawner):
         Should not be None
         """
     )
-    nano_cpus = Unicode(
-        None,
+    nano_cpus = Integer(
+        4000000000,
         allow_none=True,
         config=True,
         help="""
