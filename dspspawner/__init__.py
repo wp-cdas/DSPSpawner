@@ -158,7 +158,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       cmd = ['jupyter-labhub'],
                       extra_host_config = { 'network_mode' : self.network_name,
                                             'nano_cpus' : self.nano_cpus})
-                    self.log.info(f'Network Name is {network_name}')
+                    self.log.info(f'Network Name is {self.network_name}')
                 break
 
     def construct_child(self):
