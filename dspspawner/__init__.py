@@ -155,7 +155,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       #volumes = {'/data':'/data'},
                       network_name = self.network_name,
                       remove_container = True,
-                      cmd = ['jupyter-labhub'],
+                      #cmd = ['jupyter-labhub'],
                       extra_host_config = {'nano_cpus' : self.nano_cpus,})
                 
                 break
