@@ -58,7 +58,7 @@ async def resolve_ref(repo_url, ref):
         return stdout.split()[0]
     return ref
 
-class DSPSwarmSpawner(SwarmSpawner):
+class DSPDockerSpawner(DockerSpawner):
     @property
     def mounts(self):
         if len(self.volume_binds):
@@ -102,13 +102,12 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
-        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
+        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPDockerSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
                             volumes = {'/mnt/data':'/data'},
                             network_name = network_name,
                             remove_containers = True,
-                            extra_host_config = {'network_mode' : network_name,
-                                                 'nano_cpus' : nano_cpus} ) ) ],
+                            extra_host_config = {'nano_cpus' : nano_cpus,} ) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -152,12 +151,12 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
                     self.child_config = dict(repo = repolink,
-                      volumes = {'/data':'/data'},
+                      #This might cause issues as I'm directly calling DockerSpawner as super to Repo2DockerSpawner
+                      #volumes = {'/data':'/data'},
                       network_name = self.network_name,
                       remove_container = True,
                       cmd = ['jupyter-labhub'],
-                      extra_host_config = { 'network_mode' : self.network_name,
-                                            'nano_cpus' : self.nano_cpus})
+                      extra_host_config = {'nano_cpus' : self.nano_cpus,})
                 
                 break
 
@@ -189,7 +188,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
 
-class Repo2DockerSpawner(DSPSwarmSpawner):
+class Repo2DockerSpawner(DockerSpawner):
     # ThreadPool for talking to r2d
     _r2d_executor = None
 
@@ -273,4 +272,4 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
 
-        return await SwarmSpawner.start(self)
+        return await super.start()
