@@ -188,7 +188,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
 
-class Repo2DockerSpawner(DockerSpawner):
+class Repo2DockerSpawner(DSPSwarmSpawner):
     # ThreadPool for talking to r2d
     _r2d_executor = None
 
@@ -201,7 +201,7 @@ class Repo2DockerSpawner(DockerSpawner):
         return IOLoop.current().run_in_executor(cls._r2d_executor, func, *args)
 
 
-    start_timeout = 10 * 60
+    #start_timeout = 10 * 60
 
     # We don't want stopped containers hanging around
     remove = True
@@ -247,8 +247,11 @@ class Repo2DockerSpawner(DockerSpawner):
             raise ValueError("Repo2DockerSpawner.repo must be set")
         resolved_ref = await resolve_ref(self.repo, self.ref)
         repo_escaped = escape(self.repo, escape_char='-').lower()
-        image_spec = f'r2dspawner-{repo_escaped}:{resolved_ref}'
-
+        
+        #image_spec = f'r2dspawner-{repo_escaped}:{resolved_ref}'
+        #The ':' causes this to be seen by SwarmSpawner as a dictionary
+        
+        image_spec = f'r2d-{repo_escaped}-{resolved_ref}'
         image_info = await self.inspect_image(image_spec)
         if not image_info:
             self.log.info(f'Image {image_spec} not present, building...')
