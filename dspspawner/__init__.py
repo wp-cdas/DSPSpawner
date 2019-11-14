@@ -105,10 +105,10 @@ class DSPProfilesSpawner(ProfilesSpawner):
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
                             volumes = {'/mnt/data':'/data'},
-                            network_name = self.network_name,
+                            network_name = network_name,
                             remove_containers = True,
                             extra_host_config = {'network_mode' : network_name,
-                                                 'nano_cpus' : self.nano_cpus} ) ) ],
+                                                 'nano_cpus' : nano_cpus} ) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -153,11 +153,11 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 if p[1] == 'repo2docker':
                     self.child_config = dict(repo = repolink,
                       volumes = {'/data':'/data'},
-                      network_name = self.network_name,
+                      network_name = network_name,
                       remove_container = True,
                       cmd = ['jupyter-labhub'],
-                      extra_host_config = { 'network_mode' : self.network_name,
-                                            'nano_cpus' : self.nano_cpus})
+                      extra_host_config = { 'network_mode' : network_name,
+                                            'nano_cpus' : nano_cpus})
                 break
 
     def construct_child(self):
