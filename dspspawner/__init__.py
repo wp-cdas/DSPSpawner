@@ -99,7 +99,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                             network_name = self.network_name,
                             remove_containers = True,
                             extra_host_config = {'network_mode' : network_name,
-                                                 'nano_cpus' : self.nano_cpus} ) ],
+                                                 'nano_cpus' : self.nano_cpus} ) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
