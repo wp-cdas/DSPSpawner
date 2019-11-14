@@ -154,9 +154,9 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       #This might cause issues as I'm directly calling DockerSpawner as super to Repo2DockerSpawner
                       #volumes = {'/data':'/data'},
                       network_name = self.network_name,
-                      remove_container = True,
+                      #remove_container = True,
                       #cmd = ['jupyter-labhub'],
-                      extra_host_config = {'nano_cpus' : self.nano_cpus,})
+                      #extra_host_config = {'nano_cpus' : self.nano_cpus,})
                 
                 break
 
