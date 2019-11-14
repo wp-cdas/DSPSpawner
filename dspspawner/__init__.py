@@ -156,7 +156,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       network_name = self.network_name,
                       #remove_container = True,
                       #cmd = ['jupyter-labhub'],
-                      extra_host_config = {'network_mode' = self.network_name, 'nano_cpus' : self.nano_cpus})
+                      extra_host_config = {'network_mode': self.network_name, 'nano_cpus': self.nano_cpus})
                 
                 break
 
