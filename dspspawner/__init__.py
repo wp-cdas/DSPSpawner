@@ -135,7 +135,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
     def select_profile(self, profile, repolink):
-        self.log.info=(f'1.Network Name: {network_name}')
+        self.log.info=(f'1.Network Name: {self.network_name}')
         # Select matching profile, or do nothing (leaving previous or default config in place)
         for p in self.profiles:
             if p[1] == profile:
