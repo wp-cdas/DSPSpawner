@@ -135,7 +135,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
     def select_profile(self, profile, repolink):
-        #self.log.info=(f'1.Network Name: {self.network_name}')
+        self.log.info=(f'1.Network Name: {self.network_name}')
         # Select matching profile, or do nothing (leaving previous or default config in place)
         for p in self.profiles:
             if p[1] == profile:
@@ -143,7 +143,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
                     self.child_config = dict(repo = repolink,
-                      #This might cause issues as I'm directly calling DockerSpawner as super to Repo2DockerSpawner
+                      
                       #volumes = {'/data':'/data'},
                       network_name = self.network_name,
                       remove_container = True,
@@ -157,7 +157,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.child_profile = self.user_options.get('profile', "")
         self.repolink = self.user_options.get('repolink', "")
         self.select_profile(self.child_profile, self.repolink)
-        #self.log.info=(f'2.Network Name: {self.network_name}')
+        self.log.info=(f'2.Network Name: {self.network_name}')
         WrapSpawner.construct_child(self)
 
     def load_child_class(self, state):
