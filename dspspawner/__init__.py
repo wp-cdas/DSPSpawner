@@ -88,7 +88,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         Should not be None
         """
     )
-        profiles = List(
+    profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
