@@ -155,7 +155,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.child_profile = self.user_options.get('profile', "")
         self.repolink = self.user_options.get('repolink', "")
         self.select_profile(self.child_profile, self.repolink)
-        self.log.info('Network name: {self.network_name}')
+        self.log.info('Network name: {network_name}')
         WrapSpawner.construct_child(self)
 
     def load_child_class(self, state):
