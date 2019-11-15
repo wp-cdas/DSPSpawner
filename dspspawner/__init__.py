@@ -87,7 +87,8 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
         Should not be None
         """
-    )
+        )
+    self.log.info=(f'1.Network Name: {network_name}')
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
@@ -155,6 +156,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.child_profile = self.user_options.get('profile', "")
         self.repolink = self.user_options.get('repolink', "")
         self.select_profile(self.child_profile, self.repolink)
+        self.log.info=(f'2.Network Name: {network_name}')
         WrapSpawner.construct_child(self)
 
     def load_child_class(self, state):
