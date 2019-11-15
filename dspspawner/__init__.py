@@ -95,7 +95,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                             volumes = {'/mnt/data':'/data'},
                             network_name = network_name,
                             remove_containers = True,
-                            mem_limit = '128G'
+                            mem_limit = '128G',
                             cpu_limit = 12,
                             extra_host_config = { 'network_mode' : network_name} ) ) ],
         minlen = 1,
