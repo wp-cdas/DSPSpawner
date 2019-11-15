@@ -88,7 +88,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         Should not be None
         """
         )
-    self.log.info=(f'1.Network Name: {network_name}')
+    
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
@@ -135,6 +135,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
     def select_profile(self, profile, repolink):
+        self.log.info=(f'1.Network Name: {network_name}')
         # Select matching profile, or do nothing (leaving previous or default config in place)
         for p in self.profiles:
             if p[1] == profile:
