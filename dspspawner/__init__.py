@@ -79,7 +79,7 @@ class DSPSwarmSpawner(SwarmSpawner):
 
 class DSPProfilesSpawner(ProfilesSpawner):
     network_name = Unicode(
-        'swarmnet',
+        None,
         allow_none=True,
         config=True,
         help="""
@@ -95,10 +95,10 @@ class DSPProfilesSpawner(ProfilesSpawner):
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
                             volumes = {'/mnt/data':'/data'},
                             network_name = network_name,
-                            remove_containers = True) ) ],
-                            #mem_limit = '128G',
-                            #cpu_limit = 12,
-                            #extra_host_config = { 'network_mode' : network_name} ) ) ],
+                            remove_containers = True,
+                            mem_limit = '128G',
+                            cpu_limit = 12,
+                            extra_host_config = { 'network_mode' : network_name} ) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -135,7 +135,6 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
 
     def select_profile(self, profile, repolink):
-        self.log.info=(f'1.Network Name: {self.network_name}')
         # Select matching profile, or do nothing (leaving previous or default config in place)
         for p in self.profiles:
             if p[1] == profile:
@@ -157,7 +156,6 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.child_profile = self.user_options.get('profile', "")
         self.repolink = self.user_options.get('repolink', "")
         self.select_profile(self.child_profile, self.repolink)
-        self.log.info=(f'2.Network Name: {self.network_name}')
         WrapSpawner.construct_child(self)
 
     def load_child_class(self, state):
