@@ -88,26 +88,16 @@ class DSPProfilesSpawner(ProfilesSpawner):
         Should not be None
         """
     )
-    nano_cpus = Integer(
-        4000000000,
-        allow_none=True,
-        config=True,
-        help="""
-        Number of "nano cpus" for docker container.
-
-        Should not be None
-        """
-    )
-
-
-    profiles = List(
+        profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:2',
                             volumes = {'/mnt/data':'/data'},
                             network_name = network_name,
                             remove_containers = True,
-                            extra_host_config = {'nano_cpus' : nano_cpus,} ) ) ],
+                            mem_limit = '128G'
+                            cpu_limit = 12,
+                            extra_host_config = { 'network_mode' : network_name} ) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -154,10 +144,11 @@ class DSPProfilesSpawner(ProfilesSpawner):
                       #This might cause issues as I'm directly calling DockerSpawner as super to Repo2DockerSpawner
                       #volumes = {'/data':'/data'},
                       network_name = self.network_name,
-                      #remove_container = True,
+                      remove_container = True,
                       #cmd = ['jupyter-labhub'],
-                      extra_host_config = {'network_mode': self.network_name, 'nano_cpus': self.nano_cpus})
-                
+                      extra_host_config = {'network_mode': self.network_name, 
+                                           'mem_limit': '128G', 
+                                           'cpu_limit': 12})
                 break
 
     def construct_child(self):
