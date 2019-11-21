@@ -121,7 +121,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
 
         <input class="form-control" name="repolink" type="url" value="https://github.com/...">
 
-        <label for="warning">Spawning a Repo2Docker link could take several minutes.</label>
+        <label for="warning">Spawning a Repo2Docker link could take a long time depending on your configuration.</label>
         """,
         config = True,
         help = """Template to use to construct options_form text. {input_template} is replaced with
