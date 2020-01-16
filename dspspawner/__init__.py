@@ -68,8 +68,7 @@ class DSPSwarmSpawner(SwarmSpawner):
                     target=vol["bind"],
                     source=host_loc,
                     type="bind",
-                    read_only=vol["mode"] == "rw",
-                    #read_only=False,
+                    read_only=vol["mode"] == "ro",
                     driver_config=None,
                 )
                 for host_loc, vol in self.volume_binds.items()
