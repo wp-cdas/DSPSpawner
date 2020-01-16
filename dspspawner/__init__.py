@@ -59,7 +59,7 @@ async def resolve_ref(repo_url, ref):
     return ref
 
 class DSPSwarmSpawner(SwarmSpawner):
-    @property
+    #@property
     #def mounts(self):
     #    if len(self.volume_binds):
     #        driver = self.mount_driver_config
