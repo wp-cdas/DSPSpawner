@@ -59,24 +59,24 @@ async def resolve_ref(repo_url, ref):
     return ref
 
 class DSPSwarmSpawner(SwarmSpawner):
-    pass
-    #@property
-    #def mounts(self):
-    #    if len(self.volume_binds):
-    #        driver = self.mount_driver_config
-    #        return [
-    #            Mount(
-    #                target=vol["bind"],
-    #                source=host_loc,
-    #                type="bind",
-    #                read_only=vol["mode"] == "ro",
-    #                driver_config=None,
-    #            )
-    #            for host_loc, vol in self.volume_binds.items()
-    #        ]
+    @property
+    def mounts(self):
+        if len(self.volume_binds):
+            driver = self.mount_driver_config
+            return [
+                Mount(
+                    target=vol["bind"],
+                    source=host_loc,
+                    type="bind",
+                    #read_only=vol["mode"] == "ro",
+                    read_only=False,
+                    driver_config=None,
+                )
+                for host_loc, vol in self.volume_binds.items()
+            ]
 
-     #   else:
-     #       return []
+        else:
+            return []
 
 class DSPProfilesSpawner(ProfilesSpawner):
     network_name = Unicode(
