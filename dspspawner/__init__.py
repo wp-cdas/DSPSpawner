@@ -93,7 +93,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:latest',
-                            volumes = {'/data':{'bind':'/data','mode':'ro'}, {'/volumes/public':{'bind':'/public','mode':'rw'}},
+                            volumes = {'/data':{'bind':'/data','mode':'ro'}, '/volumes/public':{'bind':'/public','mode':'rw'}},
                             network_name = network_name,
                             remove_containers = True,
                             mem_limit = '128G',
