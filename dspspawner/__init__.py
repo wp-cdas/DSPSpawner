@@ -93,7 +93,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:latest',
-                            volumes = {'/data':{'bind':'/data','mode':'ro'}, '/volumes/public':{'bind':'/public','mode':'rw'}},
+                            volumes = {'/data':{'bind':'/data','mode':'ro'}},
                             network_name = network_name,
                             remove_containers = True,
                             mem_limit = '128G',
@@ -143,7 +143,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
                     self.child_config = dict(repo = repolink,
-                      volumes = {'/data':{'bind':'/data','mode':'ro'}, '/volumes/public/':{'bind':'/public','mode':'rw'}},
+                      volumes = {'/data':{'bind':'/data','mode':'ro'}},
                       network_name = self.network_name,
                       remove_container = True,
                       #cmd = ['jupyter-labhub'],
