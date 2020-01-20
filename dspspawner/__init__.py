@@ -92,12 +92,9 @@ class DSPProfilesSpawner(ProfilesSpawner):
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
-                            dict(image = 'cdasdsp/datasci-rstudio-notebook:latest',
-                            network_name = network_name,
-                            remove_containers = True,
-                            mem_limit = '128G',
-                            cpu_limit = 12,
-                            extra_host_config = { 'network_mode' : network_name}) ) ],
+                            dict(image = 'cdasdsp/datasci-rstudio-notebook:latest') ) ]
+                            #network_name = network_name,
+                            #extra_host_config = { 'network_mode' : network_name}) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -140,12 +137,10 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_class = p[2]
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
-                    self.child_config = dict(repo = repolink,
-                      network_name = self.network_name,
-                      remove_container = True,
-                      extra_host_config = {'network_mode': self.network_name, 
-                                           'mem_limit': '128G', 
-                                           'cpu_limit': 12})
+                    self.child_config = dict(repo = repolink)
+                      #network_name = self.network_name,
+                      #remove_container = True,
+                      #extra_host_config = {'network_mode': self.network_name})
                 break
 
     def construct_child(self):
