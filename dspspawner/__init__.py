@@ -92,7 +92,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
-                            dict(image = 'cdasdsp/datasci-rstudio-notebook:latest') ) ]
+                            dict(image = 'cdasdsp/datasci-rstudio-notebook:latest') ) ],
                             #network_name = network_name,
                             #extra_host_config = { 'network_mode' : network_name}) ) ],
         minlen = 1,
