@@ -93,13 +93,11 @@ class DSPProfilesSpawner(ProfilesSpawner):
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
         default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:latest',
-                            volumes = {'/data':{'bind':'/data','mode':'ro'}},
                             network_name = network_name,
                             remove_containers = True,
                             mem_limit = '128G',
                             cpu_limit = 12,
-                            extra_host_config = { 'network_mode' : network_name},
-                            environment = {'TF_FORCE_GPU_ALLOW_GROWTH': 'true'}) ) ],
+                            extra_host_config = { 'network_mode' : network_name}) ) ],
         minlen = 1,
         config = True,
         help = """List of profiles to offer for selection.  See original version of ProfilesSpawner"""
@@ -143,14 +141,11 @@ class DSPProfilesSpawner(ProfilesSpawner):
                 self.child_config = p[3]
                 if p[1] == 'repo2docker':
                     self.child_config = dict(repo = repolink,
-                      volumes = {'/data':{'bind':'/data','mode':'ro'}},
                       network_name = self.network_name,
                       remove_container = True,
-                      #cmd = ['jupyter-labhub'],
                       extra_host_config = {'network_mode': self.network_name, 
                                            'mem_limit': '128G', 
-                                           'cpu_limit': 12},
-                      environment = {'TF_FORCE_GPU_ALLOW_GROWTH': 'true'})
+                                           'cpu_limit': 12})
                 break
 
     def construct_child(self):
