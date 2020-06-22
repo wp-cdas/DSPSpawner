@@ -58,8 +58,8 @@ async def resolve_ref(repo_url, ref):
         return stdout.split()[0]
     return ref
 
-class DSPSwarmSpawner(SwarmSpawner):
-    @property
+#class DSPSwarmSpawner(SwarmSpawner):
+#    @property
 #    def mounts(self):
 #        if len(self.volume_binds):
 #            driver = self.mount_driver_config
@@ -89,9 +89,10 @@ class DSPProfilesSpawner(ProfilesSpawner):
         """
         )
     
+#Removed "DSP" in front of the profiles
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
-        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
+        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.SwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:latest') ) ],
         minlen = 1,
         config = True,
@@ -165,8 +166,8 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.repolink = ''
 
 
-
-class Repo2DockerSpawner(DSPSwarmSpawner):
+#Remove DSP
+class Repo2DockerSpawner(SwarmSpawner):
     # ThreadPool for talking to r2d
     _r2d_executor = None
 
@@ -248,5 +249,5 @@ class Repo2DockerSpawner(DSPSwarmSpawner):
 
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
-
-        return await DSPSwarmSpawner.start(self)
+#Remove DSP
+        return await SwarmSpawner.start(self)
