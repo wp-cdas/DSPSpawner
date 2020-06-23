@@ -58,24 +58,25 @@ async def resolve_ref(repo_url, ref):
         return stdout.split()[0]
     return ref
 
-#class DSPSwarmSpawner(SwarmSpawner):
-#    @property
-#    def mounts(self):
-#        if len(self.volume_binds):
-#            driver = self.mount_driver_config
-#            return [
-#                Mount(
-#                    target=vol["bind"],
-#                    source=host_loc,
-#                    type="bind",
-#                    read_only=vol["mode"] == "rw",
-#                    driver_config=None,
-#                )
-#                for host_loc, vol in self.volume_binds.items()
-#            ]
-#
-#        else:
-#            return []
+class DSPSwarmSpawner(SwarmSpawner):
+    @property
+    def mounts(self):
+        if len(self.volume_binds):
+            driver = self.mount_driver_config
+            return [
+                Mount(
+                    target=vol["bind"],
+                    source=host_loc,
+                    type="bind",
+#                    read_only=vol["mode"] == "ro",
+                    read_only=False,
+                    driver_config=None,
+                )
+                for host_loc, vol in self.volume_binds.items()
+            ]
+
+        else:
+            return []
 
 class DSPProfilesSpawner(ProfilesSpawner):
     network_name = Unicode(
@@ -89,10 +90,9 @@ class DSPProfilesSpawner(ProfilesSpawner):
         """
         )
     
-#Removed "DSP" in front of the profiles
     profiles = List(
         trait = Tuple( Unicode(), Unicode(), Type(Spawner), Dict() ),
-        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.SwarmSpawner',
+        default_value = [ ( 'Normal Environment', 'singleuser', 'dspspawner.DSPSwarmSpawner',
                             dict(image = 'cdasdsp/datasci-rstudio-notebook:latest') ) ],
         minlen = 1,
         config = True,
@@ -166,8 +166,7 @@ class DSPProfilesSpawner(ProfilesSpawner):
         self.repolink = ''
 
 
-#Remove DSP
-class Repo2DockerSpawner(SwarmSpawner):
+class Repo2DockerSpawner(DSPSwarmSpawner):
     # ThreadPool for talking to r2d
     _r2d_executor = None
 
@@ -249,5 +248,5 @@ class Repo2DockerSpawner(SwarmSpawner):
 
         self.log.info(f'Launching with image {image_spec} for {self.user.name}')
         self.image = image_spec
-#Remove DSP
-        return await SwarmSpawner.start(self)
+
+        return await DSPSwarmSpawner.start(self)
